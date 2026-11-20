@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-gender="m">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Homework</title>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E4ECFF; --surface:#FFFFFF; --ink:#0F1B45; --muted:#5A6A9E; --shadow:#0F1B45;
+  --hero:#1F4BFF; --accent:#FF7A1A; --accent-ink:#fff; --yellow:#FFD23F; --lime:#8FE02E;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root[data-gender="f"]{--bg:#FFE9F3; --hero:#FF4F8B; --accent:#7B4DFF; --ink:#3A0F2E; --shadow:#3A0F2E; --muted:#8E5A7C}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#12142E; --surface:#1E2250; --ink:#F2F3FF; --muted:#A5AAE0; --shadow:#000; color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#12142E; --surface:#1E2250; --ink:#F2F3FF; --muted:#A5AAE0; --shadow:#000; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;font-weight:500;min-height:100vh}
+.wrap{max-width:560px;margin:0 auto;padding:20px 16px 48px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px}
+.who{background:var(--surface);border:3px solid var(--shadow);border-radius:99px;padding:6px 16px;font-weight:900;cursor:pointer;color:var(--ink)}
+.theme{background:var(--surface);border:3px solid var(--shadow);border-radius:99px;width:44px;height:44px;cursor:pointer;font-size:1.2rem}
+.hero{background:var(--hero);color:#fff;border:3px solid var(--shadow);border-radius:28px;box-shadow:6px 6px 0 var(--shadow);padding:20px;position:relative;overflow:hidden}
+.hero h1{font-family:'Lilita One','Nunito',sans-serif;font-weight:400;font-size:2.4rem;line-height:1.15;margin:0;max-width:62%}
+.hero p{margin:6px 0 16px;font-weight:700}
+.pct{position:absolute;right:14px;top:6px;font-family:'Lilita One',sans-serif;font-size:5rem;line-height:1;color:var(--yellow);-webkit-text-stroke:3px var(--shadow);paint-order:stroke fill;transform:rotate(6deg);direction:ltr}
+.bar{height:26px;background:var(--surface);border:3px solid var(--shadow);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(-45deg,var(--lime) 0 12px,#78c71f 12px 24px);transition:width .5s cubic-bezier(.3,1.4,.5,1)}
+form.add-f{display:grid;grid-template-columns:1fr auto;gap:10px;margin:22px 0 10px}
+input,select,button{font:inherit;color:var(--ink)}
+input[type=text]{background:var(--surface);border:3px solid var(--shadow);border-radius:16px;padding:12px 14px;font-weight:700;min-width:0}
+input[type=text]::placeholder{color:var(--muted)}
+select{background:var(--surface);border:3px solid var(--shadow);border-radius:16px;padding:10px 12px;font-weight:700;grid-column:1}
+.add{grid-row:1;grid-column:2;background:var(--accent);color:var(--accent-ink);border:3px solid var(--shadow);border-radius:16px;box-shadow:4px 4px 0 var(--shadow);font-weight:900;padding:0 20px;cursor:pointer}
+.add:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--shadow)}
+:focus-visible{outline:4px solid var(--accent);outline-offset:2px}
+.filters{display:flex;gap:8px;margin:16px 0}
+.chip{background:var(--surface);border:3px solid var(--shadow);border-radius:99px;padding:4px 16px;font-weight:700;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--hero);color:#fff}
+ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+li{display:flex;align-items:center;gap:12px;background:var(--surface);border:3px solid var(--shadow);border-radius:20px;box-shadow:4px 4px 0 var(--shadow);padding:10px 12px;border-inline-start:14px solid var(--c)}
+.check{flex:none;width:36px;height:36px;border-radius:12px;border:3px solid var(--shadow);background:var(--bg);cursor:pointer;display:grid;place-items:center;font-size:1.3rem;font-weight:900}
+li.done .check{background:var(--lime);color:#0F1B45}
+.txt{flex:1;min-width:0}
+.txt b{display:block;font-weight:700;overflow-wrap:anywhere}
+.txt small{color:var(--muted);font-weight:700}
+li.done .txt b{text-decoration:line-through;text-decoration-thickness:3px;color:var(--muted)}
+.del{flex:none;background:none;border:0;font-size:1.2rem;cursor:pointer;opacity:.6;padding:6px}
+.del:hover{opacity:1}
+.empty{text-align:center;padding:28px 12px;font-weight:700;color:var(--muted);border:3px dashed var(--muted);border-radius:20px}
+.ov{position:fixed;inset:0;z-index:30;background:var(--hero);display:flex;overflow-y:auto;padding:20px}
+.ov[hidden]{display:none}
+.card{margin:auto;background:var(--surface);border:3px solid var(--shadow);border-radius:28px;box-shadow:6px 6px 0 var(--shadow);padding:24px;width:100%;max-width:420px}
+.card h2{font-family:'Lilita One','Nunito',sans-serif;font-weight:400;font-size:2.2rem;margin:0 0 14px}
+.card[hidden]{display:none}
+.card input{width:100%;margin-bottom:14px}
+.bad{border-color:#E5384F!important}
+.card .add{width:100%;padding:12px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.big{background:var(--bg);border:3px solid var(--shadow);border-radius:20px;box-shadow:4px 4px 0 var(--shadow);padding:18px 8px;font-weight:900;font-size:1.3rem;cursor:pointer}
+.big span{display:block;font-size:2.4rem}
+.big:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--shadow)}
+.pop{position:fixed;pointer-events:none;font-size:1.8rem;z-index:40;animation:fly 1.4s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
+@media (prefers-reduced-motion:reduce){.pop{display:none}.bar i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><button class="who" id="who">👤</button><button class="theme" id="theme" aria-label="Toggle theme">🌓</button></div>
+  <section class="hero">
+    <div class="pct" id="pct">0%</div>
+    <h1 id="hi">My Homework Today</h1>
+    <p id="sub"></p>
+    <div class="bar" role="progressbar" aria-label="Progress" aria-valuemin="0" aria-valuemax="100" id="pb"><i id="fill"></i></div>
+  </section>
+  <form class="add-f" id="f">
+    <input type="text" id="t" maxlength="80" required autocomplete="off">
+    <button class="add" type="submit" id="addbtn"></button>
+    <select id="s" aria-label="Subject"></select>
+  </form>
+  <div class="filters">
+    <button class="chip" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" data-f="todo" aria-pressed="false">To do</button>
+    <button class="chip" data-f="done" aria-pressed="false">Done</button>
+  </div>
+  <ul id="list"></ul>
+</div>
+
+<div class="ov" id="ov" hidden>
+  <div class="card" id="s1"><h2>Boy or girl?</h2>
+    <div class="opts"><button class="big" data-g="m"><span>👦</span>Boy</button><button class="big" data-g="f"><span>👧</span>Girl</button></div></div>
+  <div class="card" id="s2" hidden><h2>What's your name?</h2>
+    <input type="text" id="nm" placeholder="Type your name" maxlength="20" autocomplete="off" enterkeyhint="next">
+    <button class="add" type="button" id="nx">Next</button></div>
+  <div class="card" id="s3" hidden><h2>Your second language?</h2>
+    <div class="opts"><button class="big" data-l="de"><span>🇩🇪</span>German</button><button class="big" data-l="fr"><span>🇫🇷</span>French</button></div></div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const BASE={en:['English','📚','#E5384F'],sci:['Science','🔬','#8FE02E'],math:['Math','📐','#1F4BFF'],ar:['Arabic','📖','#FF7A1A'],ss:['Social Studies','🌍','#FFB400'],rel:['Religion','🕌','#19B5A5'],lang:['','🗣️','#8A4DFF'],ict:['Computer','💻','#00A8E8']};
+let P={},tasks=[],filter='all';
+try{P=JSON.parse(localStorage.getItem('hw-profile')||'{}')||{}}catch(e){P={}}
+try{tasks=JSON.parse(localStorage.getItem('homework-v3')||'[]')||[]}catch(e){tasks=[]}
+const saveT=()=>{try{localStorage.setItem('homework-v3',JSON.stringify(tasks))}catch(e){}};
+const saveP=()=>{try{localStorage.setItem('hw-profile',JSON.stringify(P))}catch(e){}};
+const G=(m,f)=>P.g==='f'?f:m;
+const nf=n=>n.toLocaleString('en-US');
+const lab=k=>k==='lang'?(P.lang==='de'?'German':'French'):BASE[k][0];
+
+function seed(){
+  if(tasks.length)return;
+  const d={math:'Solve page 42 exercises',sci:'Review the cell lesson',ar:'Write the composition',en:'Memorize Unit 3 vocabulary',ss:'Review the civilization lesson',rel:'Review the weekly lesson',lang:'Practice vocabulary',ict:'Computer exercise'};
+  tasks=Object.keys(d).map((s,i)=>({id:i+1,t:d[s],s,d:false}));saveT();
+}
+
+function stage(){
+  const ov=$('ov');
+  const step=!P.g?1:!P.name?2:!P.lang?3:0;
+  ov.hidden=!step;
+  [1,2,3].forEach(i=>$('s'+i).hidden=(i!==step));
+  if(step===2)setTimeout(()=>$('nm').focus(),50);
+  if(!step){seed();document.documentElement.dataset.gender=P.g;}
+  ui();
+}
+function ui(){
+  $('hi').textContent=P.name?P.name+"'s Homework Today":'My Homework Today';
+  $('who').textContent='👤 '+(P.name||'Me');
+  $('t').placeholder='Add new homework…';
+  $('addbtn').textContent='Add';
+  const cur=$('s').value;
+  $('s').innerHTML='';
+  Object.keys(BASE).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=BASE[k][1]+' '+(P.lang||k!=='lang'?lab(k):'Language');$('s').appendChild(o)});
+  if(cur)$('s').value=cur;
+  render();
+}
+
+function confetti(){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  const em=['🎉','⭐','✨','🏆','🔥'];
+  for(let i=0;i<24;i++){
+    const p=document.createElement('span');p.className='pop';p.textContent=em[i%em.length];
+    p.style.left='50%';p.style.top='40%';
+    p.style.setProperty('--x',(Math.random()*500-250)+'px');
+    p.style.setProperty('--y',(Math.random()*-300-40)+'px');
+    p.style.setProperty('--r',(Math.random()*720-360)+'deg');
+    document.body.appendChild(p);setTimeout(()=>p.remove(),1500);
+  }
+}
+
+function render(){
+  const done=tasks.filter(x=>x.d).length,total=tasks.length;
+  const p=total?Math.round(done/total*100):0;
+  $('pct').textContent=nf(p)+'%';
+  $('fill').style.width=p+'%';
+  $('pb').setAttribute('aria-valuenow',p);
+  $('sub').textContent=!total?'No homework yet — add your first one':p===100?'All done! Time to relax 🎉':(done?nf(total-done)+' of '+nf(total)+' left':'Start with the first one!');
+  const shown=tasks.filter(x=>filter==='all'||(filter==='done'?x.d:!x.d));
+  const ul=$('list');ul.innerHTML='';
+  if(!shown.length){
+    const e=document.createElement('div');e.className='empty';
+    e.textContent=filter==='done'?'No completed homework yet':filter==='todo'?'Nothing left, great job!':'The list is empty. Add your first homework above.';
+    ul.appendChild(e);return;
+  }
+  shown.forEach(x=>{
+    const li=document.createElement('li');
+    li.style.setProperty('--c',(BASE[x.s]||BASE.ict)[2]);
+    if(x.d)li.className='done';
+    const c=document.createElement('button');c.className='check';c.setAttribute('aria-label','Done');c.textContent=x.d?'✓':'';
+    c.onclick=()=>{x.d=!x.d;saveT();render();if(x.d&&tasks.every(y=>y.d))confetti();};
+    const tx=document.createElement('div');tx.className='txt';
+    const b=document.createElement('b');b.textContent=x.t;
+    const sm=document.createElement('small');sm.textContent=BASE[x.s]?lab(x.s):'';
+    tx.append(b,sm);
+    const d=document.createElement('button');d.className='del';d.setAttribute('aria-label','Delete');d.textContent='🗑️';
+    d.onclick=()=>{tasks=tasks.filter(y=>y.id!==x.id);saveT();render();};
+    li.append(c,tx,d);ul.appendChild(li);
+  });
+}
+
+document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{P.g=b.dataset.g;document.documentElement.dataset.gender=P.g;saveP();stage()});
+const goName=()=>{const v=$('nm').value.trim();if(!v){$('nm').classList.add('bad');$('nm').placeholder='Please type your name first';$('nm').focus();return}P.name=v;saveP();stage()};
+$('nx').onclick=goName;
+$('nm').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();goName()}});
+$('nm').addEventListener('input',()=>$('nm').classList.remove('bad'));
+document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{P.lang=b.dataset.l;saveP();stage()});
+$('who').onclick=()=>{P={};saveP();$('nm').value='';stage()};
+$('f').onsubmit=e=>{
+  e.preventDefault();
+  const v=$('t').value.trim();if(!v)return;
+  tasks.unshift({id:Date.now(),t:v,s:$('s').value,d:false});
+  $('t').value='';saveT();render();
+};
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{
+  filter=c.dataset.f;
+  document.querySelectorAll('.chip').forEach(k=>k.setAttribute('aria-pressed',k===c));
+  render();
+});
+$('theme').onclick=()=>{
+  const r=document.documentElement;
+  const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+  r.dataset.theme=dark?'light':'dark';
+};
+if(P.g)document.documentElement.dataset.gender=P.g;
+stage();
+</script>
+</body>
+</html>
